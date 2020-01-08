@@ -81,20 +81,15 @@ class _FullPageEditorScreenState extends State<FullPageEditorScreen> {
       resizeToAvoidBottomPadding: true,
       appBar: AppBar(
         elevation: 1.0,
-        backgroundColor: Colors.grey.shade200,
-        brightness: Brightness.light,
         title: ZefyrLogo(),
         actions: done,
       ),
       body: ZefyrScaffold(
-        child: ZefyrTheme(
-          data: theme,
-          child: ZefyrEditor(
-            controller: _controller,
-            focusNode: _focusNode,
-            mode: _editing ? ZefyrMode.edit : ZefyrMode.select,
-            imageDelegate: CustomImageDelegate(),
-          ),
+        child: ZefyrEditor(
+          controller: _controller,
+          focusNode: _focusNode,
+          mode: _editing ? ZefyrMode.edit : ZefyrMode.select,
+          imageDelegate: CustomImageDelegate(),
         ),
       ),
     );

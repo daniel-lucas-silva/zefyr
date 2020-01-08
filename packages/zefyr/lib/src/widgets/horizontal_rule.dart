@@ -17,13 +17,17 @@ class ZefyrHorizontalRule extends LeafRenderObjectWidget {
 
   @override
   RenderHorizontalRule createRenderObject(BuildContext context) {
-    return RenderHorizontalRule(node: node);
+
+    
+
+    return RenderHorizontalRule(node: node, dividerColor: Theme.of(context).dividerColor);
   }
 
   @override
   void updateRenderObject(
       BuildContext context, RenderHorizontalRule renderObject) {
-    renderObject..node = node;
+    renderObject..node = node
+    ..dividerColor = Theme.of(context).dividerColor;
   }
 }
 
@@ -32,9 +36,12 @@ class RenderHorizontalRule extends RenderEditableBox {
   static const _kThickness = 3.0;
   static const _kHeight = _kThickness + _kPaddingBottom;
 
+  
+
   RenderHorizontalRule({
     @required EmbedNode node,
-  }) : _node = node;
+    Color dividerColor,
+  }) : _node = node, _dividerColor = dividerColor;
 
   @override
   EmbedNode get node => _node;
@@ -42,6 +49,14 @@ class RenderHorizontalRule extends RenderEditableBox {
   set node(EmbedNode value) {
     if (_node == value) return;
     _node = value;
+    markNeedsPaint();
+  }
+
+  Color get dividerColor => _dividerColor;
+  Color _dividerColor;
+  set dividerColor(Color value) {
+    if (_dividerColor == value) return;
+    _dividerColor = value;
     markNeedsPaint();
   }
 
@@ -77,7 +92,7 @@ class RenderHorizontalRule extends RenderEditableBox {
   @override
   void paint(PaintingContext context, Offset offset) {
     final rect = Rect.fromLTWH(0.0, 0.0, size.width, _kThickness);
-    final paint = ui.Paint()..color = Colors.grey.shade200;
+    final paint = ui.Paint()..color = dividerColor;
     context.canvas.drawRect(rect.shift(offset), paint);
   }
 

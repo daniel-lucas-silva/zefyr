@@ -31,8 +31,6 @@ class _FormEmbeddedScreenState extends State<FormEmbeddedScreen> {
       resizeToAvoidBottomPadding: true,
       appBar: AppBar(
         elevation: 1.0,
-        backgroundColor: Colors.grey.shade200,
-        brightness: Brightness.light,
         title: ZefyrLogo(),
       ),
       body: ZefyrScaffold(

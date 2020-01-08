@@ -17,6 +17,7 @@ class ZefyrCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = ZefyrTheme.of(context);
+    final bool isDark = Theme.of(context).brightness == Brightness.dark;
 
     List<Widget> items = [];
     for (var line in node.children) {
@@ -28,7 +29,7 @@ class ZefyrCode extends StatelessWidget {
       child: Container(
         // TODO: make decorations configurable
         decoration: BoxDecoration(
-          color: Colors.blueGrey.shade50,
+          color: isDark ? Colors.black : Colors.blueGrey.shade50,
           borderRadius: BorderRadius.circular(3.0),
         ),
         padding: const EdgeInsets.all(16.0),

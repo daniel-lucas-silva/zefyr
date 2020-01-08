@@ -42,7 +42,8 @@ class ZefyrTheme extends InheritedWidget {
   /// and [nullOk] is set to `true`. If [nullOk] is set to `false` (default)
   /// then this method asserts.
   static ZefyrThemeData of(BuildContext context, {bool nullOk = false}) {
-    final ZefyrTheme widget = context.inheritFromWidgetOfExactType(ZefyrTheme);
+    final ZefyrTheme widget =
+        context.dependOnInheritedWidgetOfExactType<ZefyrTheme>();
     if (widget == null && nullOk) return null;
     assert(widget != null,
         '$ZefyrTheme.of() called with a context that does not contain a ZefyrEditor.');
@@ -66,29 +67,27 @@ class ZefyrThemeData {
   final ZefyrToolbarTheme toolbarTheme;
 
   factory ZefyrThemeData.fallback(BuildContext context) {
+    final bool isDark = MediaQuery.platformBrightnessOf(context) == Brightness.dark;
+
     final ThemeData themeData = Theme.of(context);
-    final defaultStyle = DefaultTextStyle.of(context);
-    final paragraphStyle = defaultStyle.style.copyWith(
-      fontSize: 16.0,
-      height: 1.25,
-      fontWeight: FontWeight.normal,
-      color: Colors.grey.shade800,
-    );
+
     final padding = const EdgeInsets.only(bottom: 16.0);
     final boldStyle = TextStyle(fontWeight: FontWeight.bold);
     final italicStyle = TextStyle(fontStyle: FontStyle.italic);
-    final linkStyle =
-        TextStyle(color: Colors.blue, decoration: TextDecoration.underline);
+    final linkStyle = TextStyle(
+        color: isDark ? Colors.blue[300] : Colors.blue,
+        decoration: TextDecoration.underline);
 
     return ZefyrThemeData(
       boldStyle: boldStyle,
       italicStyle: italicStyle,
       linkStyle: linkStyle,
-      paragraphTheme: StyleTheme(textStyle: paragraphStyle, padding: padding),
-      headingTheme: HeadingTheme.fallback(),
+      paragraphTheme:
+          StyleTheme(textStyle: themeData.textTheme.body1, padding: padding),
+      headingTheme: HeadingTheme.fallback(themeData),
       blockTheme: BlockTheme.fallback(themeData),
-      selectionColor: Colors.lightBlueAccent.shade100,
-      cursorColor: Colors.black,
+      selectionColor: themeData.textSelectionColor,
+      cursorColor: themeData.cursorColor,
       indentSize: 16.0,
       toolbarTheme: ZefyrToolbarTheme.fallback(context),
     );
@@ -168,33 +167,22 @@ class HeadingTheme {
   });
 
   /// Creates fallback theme for headings.
-  factory HeadingTheme.fallback() {
+  factory HeadingTheme.fallback(ThemeData themeData) {
+    final bool isDark = themeData.brightness == Brightness.dark;
+
     return HeadingTheme(
       level1: StyleTheme(
-        textStyle: TextStyle(
-          fontSize: 30.0,
-          color: Colors.grey.shade800,
-          height: 1.25,
-          fontWeight: FontWeight.w600,
+        textStyle: themeData.textTheme.display1.copyWith(
+          color: isDark ? Colors.white : Colors.black,
         ),
         padding: EdgeInsets.only(top: 16.0, bottom: 16.0),
       ),
       level2: StyleTheme(
-        textStyle: TextStyle(
-          fontSize: 24.0,
-          color: Colors.grey.shade800,
-          height: 1.25,
-          fontWeight: FontWeight.w600,
-        ),
+        textStyle: themeData.textTheme.headline,
         padding: EdgeInsets.only(bottom: 8.0, top: 8.0),
       ),
       level3: StyleTheme(
-        textStyle: TextStyle(
-          fontSize: 20.0,
-          color: Colors.grey.shade800,
-          height: 1.25,
-          fontWeight: FontWeight.w600,
-        ),
+        textStyle: themeData.textTheme.title,
         padding: EdgeInsets.only(bottom: 8.0, top: 8.0),
       ),
     );
@@ -225,6 +213,7 @@ class BlockTheme {
   /// Creates fallback theme for blocks.
   factory BlockTheme.fallback(ThemeData themeData) {
     final padding = const EdgeInsets.only(bottom: 8.0);
+    final bool isDark = themeData.brightness == Brightness.dark;
     String fontFamily;
     switch (themeData.platform) {
       case TargetPlatform.iOS:
@@ -241,12 +230,14 @@ class BlockTheme {
       bulletList: StyleTheme(padding: padding),
       numberList: StyleTheme(padding: padding),
       quote: StyleTheme(
-        textStyle: TextStyle(color: Colors.grey.shade700),
+        textStyle: TextStyle(
+          color: isDark ? Colors.white : Colors.blueGrey.shade800,
+        ),
         padding: padding,
       ),
       code: StyleTheme(
         textStyle: TextStyle(
-          color: Colors.blueGrey.shade800,
+          color: isDark ? Colors.white : Colors.blueGrey.shade800,
           fontFamily: fontFamily,
           fontSize: 14.0,
           height: 1.25,
@@ -293,10 +284,10 @@ class ZefyrToolbarTheme {
   factory ZefyrToolbarTheme.fallback(BuildContext context) {
     final theme = Theme.of(context);
     return ZefyrToolbarTheme._(
-      color: theme.primaryColorLight,
-      toggleColor: theme.primaryColor,
-      iconColor: theme.primaryIconTheme.color,
-      disabledIconColor: theme.primaryColor,
+      color: Colors.grey.shade800,
+      toggleColor: Colors.grey.shade900,
+      iconColor: Colors.white,
+      disabledIconColor: Colors.grey.shade500,
     );
   }
 

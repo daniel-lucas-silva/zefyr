@@ -16,7 +16,7 @@ class ZefyrApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Zefyr Editor',
-      theme: ThemeData(primarySwatch: Colors.cyan),
+      theme: ThemeData.dark(),
       home: HomePage(),
       routes: {
         "/fullPage": buildFullPage,
@@ -46,8 +46,6 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 1.0,
-        backgroundColor: Colors.grey.shade200,
-        brightness: Brightness.light,
         title: ZefyrLogo(),
       ),
       body: Column(
