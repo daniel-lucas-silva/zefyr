@@ -87,9 +87,9 @@
     },
     {
       "name": "notus",
-      "rootUri": "file:///Users/daniel/.pub-cache/hosted/pub.dartlang.org/notus-0.1.4",
+      "rootUri": "file:///Users/daniel/.pub-cache/hosted/pub.dartlang.org/notus-0.1.5",
       "packageUri": "lib/",
-      "languageVersion": "2.0"
+      "languageVersion": "2.2"
     },
     {
       "name": "path",
@@ -117,7 +117,7 @@
     },
     {
       "name": "quill_delta",
-      "rootUri": "file:///Users/daniel/.pub-cache/hosted/pub.dartlang.org/quill_delta-1.0.0",
+      "rootUri": "file:///Users/daniel/.pub-cache/hosted/pub.dartlang.org/quill_delta-1.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.0"
     },
@@ -224,7 +224,7 @@
       "languageVersion": "2.2"
     }
   ],
-  "generated": "2020-01-01T22:47:46.841982Z",
+  "generated": "2020-01-23T16:19:52.194253Z",
   "generator": "pub",
-  "generatorVersion": "2.8.0-dev.0.0.flutter-c547f5d933"
+  "generatorVersion": "2.8.0-dev.0.0.flutter-2f57602411"
 }
